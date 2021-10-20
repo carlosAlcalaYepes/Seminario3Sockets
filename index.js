@@ -11,21 +11,31 @@ io.on('connection', function(socket){
   console.log('a user connected');
   io.emit('chat message', 'Alguien se ha conectado');
 
-  socket.on('sendNickname', function(username) {
+  socket.on('nickname', function(username) {
     socket.username = username;
     users.push(socket.username);
     console.log(username);
-    //socket.emit('showRooms', rooms);
+    console.log(users);
   });
 
   socket.on('disconnect', function(){
-    io.emit('chat message', [users]+'Alguien se ha desconectado');
+    io.emit('chat message', 'Alguien se ha desconectado');
     console.log('user disconnected');
+    //prueba que borre el nombre de usuario que se desconecta
+    /*
+    console.log(socket.username);
+    if(!socket.username) return;
+    users.splice(users.indexOf(socket.username),1);
+    console.log(users);
+    */
   });
 
   socket.on('chat message', function(msg){
     console.log('message: ' + msg);
-    io.emit('chat message', msg);
+    io.emit('chat message', {
+      msg: msg,
+      nick: socket.username
+    });
   });
 
 
