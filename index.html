@@ -45,6 +45,9 @@
     </div>
 
 
+
+
+   
     <div  id="chat"  style='display:none'>
         <ul id="messages"></ul>
       
@@ -52,23 +55,27 @@
           <input id="m" autocomplete="off" /><button>Send</button>
         </form>
    
-   
-    <script>
-      //var socket = io();
-      $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
-      });
-      socket.on('chat message', function(msg){
-        if(msg.nick){
-          $('#messages').append($('<li>').text(msg.nick+':'+msg.msg));
-        }
-        else{
-          $('#messages').append($('<li>').text(msg));
-        }
-      });
-    </script>
+        <script>
+          var socket = io();
+          $('form').submit(function(){
+            console.log("envia mensaje");
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            return false;
+          });
+          socket.on('chat message', function(msg){
+            console.log(msg);
+            if(msg.msg && msg.nick){
+              console.log("con nick");
+              $('#messages').append($('<li>').text(msg.nick+': '+msg.msg));
+            }
+            else{
+              console.log("sin nick");
+              $('#messages').append($('<li>').text(msg.msg));
+            }
+          });
+        </script>
+    
     </div>
   </body>
 </html>

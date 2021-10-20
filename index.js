@@ -8,14 +8,16 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-  console.log('a user connected');
-  io.emit('chat message', 'Alguien se ha conectado');
+ 
+  //io.emit('chat message', 'Alguien se ha conectado');
+  io.emit('chat message', {
+    msg: 'Alguien se ha conectado',
+    nick: null
+  });
 
   socket.on('nickname', function(username) {
     socket.username = username;
     users.push(socket.username);
-    console.log(username);
-    console.log(users);
   });
 
   socket.on('disconnect', function(){
