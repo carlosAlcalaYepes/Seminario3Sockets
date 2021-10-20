@@ -21,7 +21,10 @@ io.on('connection', function(socket){
   });
 
   socket.on('disconnect', function(){
-    io.emit('chat message', 'Alguien se ha desconectado');
+    io.emit('chat message', {
+      msg: 'Alguien se ha desconectado',
+      nick: null
+    });
     console.log('user disconnected');
     //prueba que borre el nombre de usuario que se desconecta
     /*
