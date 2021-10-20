@@ -9,12 +9,11 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
  
-  //io.emit('chat message', 'Alguien se ha conectado');
-  io.emit('chat message', {
+  
+  socket.broadcast.emit('chat message', {
     msg: 'Alguien se ha conectado',
     nick: null
   });
-
   socket.on('nickname', function(username) {
     socket.username = username;
     users.push(socket.username);
@@ -34,16 +33,14 @@ io.on('connection', function(socket){
     console.log(users);
     */
   });
-
+  
   socket.on('chat message', function(msg){
     console.log('message: ' + msg);
-    io.emit('chat message', {
+    socket.broadcast.emit('chat message', {
       msg: msg,
       nick: socket.username
     });
   });
-
-
 });
 
 http.listen(3000, function(){
