@@ -31,3 +31,15 @@ socket.on('chat message', function(msg) {
         $('#messages').append($('<li>').text(msg.msg));
     }
 });
+
+socket.on('updateUl', function(users) {
+    let ol = document.createElement('ol');
+    users.forEach(function(user) {
+        let li = document.createElement('li');
+        li.innerHTML = user;
+        ol.appendChild(li);
+    });
+    let userList = document.querySelector('#users');
+    userList.innerHTML = "";
+    userList.appendChild(ol);
+});
