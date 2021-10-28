@@ -55,7 +55,6 @@ io.on('connection', function(socket) {
         let indexespacio= msg.indexOf(" ");
         let partes = msg.split(" ");
         let mensaje=msg.substr(indexespacio);
-        
         if (partes[0].charAt(0) === '/') {
             let usnam = partes[0].substring(1);
             let privado = listaUser.getID(usnam);

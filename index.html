@@ -124,6 +124,7 @@
             $('form').submit(function() {
                 console.log("envia mensaje");
                 socket.emit('chat message', $('#men').val());
+                $('#messages').append($('<li>').text($('#men').val()));
                 $('#men').val('');
                 return false;
             });
