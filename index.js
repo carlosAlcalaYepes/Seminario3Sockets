@@ -51,14 +51,17 @@ io.on('connection', function(socket) {
     });
 
     socket.on('chat message', function(msg) {
-        console.log('message: ' + msg);
-        let partes = msg.split(' ');
+        //console.log('message: ' + msg);
+        let indexespacio= msg.indexOf(" ");
+        let partes = msg.split(" ");
+        let mensaje=msg.substr(indexespacio);
+        
         if (partes[0].charAt(0) === '/') {
             let usnam = partes[0].substring(1);
             let privado = listaUser.getID(usnam);
             if (privado) {
                 socket.to(privado.id).emit('chat message', {
-                    msg: partes[1],
+                    msg: mensaje,
                     nick: socket.username
                 });
             } else {
