@@ -105,13 +105,18 @@
         <ul id="messages"></ul>
 
         <form action="">
-            <input id="men" autocomplete="off" onchange="sendTypingStatus()" /><button>Send</button>
+            <input id="men" autocomplete="off" onchange="sendTypingStatus()" />
+            <button>Send</button>
+
             <script>
                 function sendTypingStatus() {
                     socket.emit('chat:typing')
                 };
                 socket.on('chat:typing', function() {
                     $('#act').append($('<p>').text('Escribiendo'));
+                    setTimeout(function() {
+                        $("#act").html('');
+                    }, 5000);
                 });
             </script>
         </form>

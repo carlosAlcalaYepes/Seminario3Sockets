@@ -52,10 +52,29 @@ io.on('connection', function(socket) {
 
     socket.on('chat message', function(msg) {
         console.log('message: ' + msg);
-        socket.broadcast.emit('chat message', {
-            msg: msg,
-            nick: socket.username
-        });
+        let partes = msg.split(' ');
+        if (partes[0].charAt(0) === '/') {
+            let usnam = partes[0].substring(1);
+            let privado = listaUser.getID(usnam);
+            if (privado) {
+                socket.to(privado.id).emit('chat message', {
+                    msg: partes[1],
+                    nick: socket.username
+                });
+            } else {
+                io.emit('chat message', {
+                    msg: `${partes[0]} no es un ususario conenctado`,
+                    nick: null
+                });
+            }
+
+        } else {
+            socket.broadcast.emit('chat message', {
+                msg: msg,
+                nick: socket.username
+            });
+        }
+
     });
 });
 
