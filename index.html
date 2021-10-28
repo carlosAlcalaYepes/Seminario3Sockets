@@ -82,12 +82,10 @@
 
     </div>
 
-
-
-
-
     <div id="chat" style='display:none'>
+        <h3>Lista de usuarios conectados</h3>
         <div id="users"></div>
+        <h3>Chat</h3>
         <script>
             socket.on('updateUl', function(users) {
                 let ol = document.createElement('ol');
