@@ -1,3 +1,4 @@
+//clase usuarios que gestiona las operaciones que se realizan sobre la lista de usuarios conectados
 class Usuarios {
     constructor() {
         this.usuarios = [];
